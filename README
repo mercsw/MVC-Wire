@@ -13,3 +13,4 @@ Project Goals:
 - Easy rendering for multiple targets based on capabilities (HTML5, Mobile, etc)
 - Consistently apply the principle of least priviledge
 - Zero database code, Model Classes will create their own database schema and crud operations for persistance
+- Mandatory Controller and View whitelisting
