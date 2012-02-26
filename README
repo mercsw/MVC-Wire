@@ -6,7 +6,7 @@ Project Goals:
 - Do not allow insecure features
 - Unique naming convention for all sites 
 - DRY (Don't repeat yourself)
-- Templatized views 
+- Simple Templatized views 
 - Easy and required regular expression input validation on both client and server side
 - All forms tokenized for CSRF
 - All input filtered for XSS and SQLi
