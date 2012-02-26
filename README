@@ -1,0 +1,15 @@
+MVC Wire is a PHP MVC Framework
+
+Project Goals:
+- Secure by default
+- All user input must be validated before it can be used (Command, Headers, Post)
+- Do not allow insecure features
+- Unique naming convention for all sites 
+- DRY (Don't repeat yourself)
+- Templatized views 
+- Easy and required regular expression input validation on both client and server side
+- All forms tokenized for CSRF
+- All input filtered for XSS and SQLi
+- Easy rendering for multiple targets based on capabilities (HTML5, Mobile, etc)
+- Consistently apply the principle of least priviledge
+- Zero database code, Model Classes will create their own database schema and crud operations for persistance
