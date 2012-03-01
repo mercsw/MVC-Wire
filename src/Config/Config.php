@@ -1,8 +1,18 @@
 <?php
 
-define ('DEVELOPMENT_ENVIRONMENT',true);
+define ('DEVELOPMENT_ENVIRONMENT',TRUE);
 
-define('DB_NAME', 'your_mvcwire_db');
-define('DB_USER', 'your_mvcwire_user');
-define('DB_PASSWORD', 'your_mvcwire_passwd');
-define('DB_HOST', 'localhost');
+if(DEVELOPMENT_ENVIRONMENT == TRUE)
+{
+	// Use SQLite for local dev
+	$DB_CONSTRING = 'sqlite:/tmp/mvc-wire.sqlite';
+	$DB_USER = '';
+	$DB_PASSWORD = '';
+}
+else{	
+	// Use Mysql for Production
+	$DB_CONSTRING = 'mysql:host=localhost;dbname=mydatabase';
+	$DB_USER = '';
+	$DB_PASSWORD = '';
+}
+

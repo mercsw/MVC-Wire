@@ -102,7 +102,18 @@ function __autoload($className) {
 	}
 }
 
+function configOrm()
+{
+	global $DB_CONSTRING;
+	global $DB_USER;
+	global $DB_PASSWORD;
+	
+	require_once(ROOT . DS . 'Library' . DS . 'ORM' . DS . 'redbean' . DS . 'rb.php');
+	R::setup($DB_CONSTRING, $DB_USER, $DB_PASSWORD);	
+}
+
 setReporting();
 checkMagicQuotes();
 checkRegisterGlobals();
+configOrm();
 callHook();

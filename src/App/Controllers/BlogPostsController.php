@@ -1,9 +1,14 @@
 <?php
 class BlogPostsController extends Controller {
 
-	function view($id = null,$name = null) {
-		$this->set('title', $name . ' - Blog');
-		$this->set('blogPost',"Post id: $id");
+	function view($id) {
+		$bp = new BlogPost();
+		$bp = BlogPost::GetRowById($id);
+		if (sizeof($bp) == 0)
+		{
+			die("Record not found");
+		}
+		$this->set('model', $bp);
 	}
 
 	function viewall() {
@@ -13,9 +18,9 @@ class BlogPostsController extends Controller {
 	}
 
 	function add() {
-		$todo = $_POST['todo'];
-		$this->set('title','Success - Blog');
-		die("Not implemented");
+		$bp = new BlogPost();
+		$bp->set('PostDate', time());
+		$bp->save();
 	}
 
 	function delete($id = null) {
