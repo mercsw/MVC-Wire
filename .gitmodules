@@ -1,0 +1,3 @@
+[submodule "src/Library/ORM/propel"]
+	path = src/Library/ORM/propel
+	url = git://github.com/propelorm/Propel.git
