@@ -2,6 +2,11 @@
 
 define ('DEVELOPMENT_ENVIRONMENT',TRUE);
 
+// IDS Configuration
+define('IDS_EMAIL_FROM','merc@securitywire.com');
+define('IDS_EMAIL_TO','merc@securitywire.com');
+define('IDS_EMAIL_SUBJECT','Web IDS Warning');
+
 if(DEVELOPMENT_ENVIRONMENT == TRUE)
 {
 	// Use SQLite for local dev

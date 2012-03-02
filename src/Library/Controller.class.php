@@ -22,11 +22,11 @@ class Controller {
 	}
 
 	function __destruct() {
-			// Close database connection
-			R::close();
-			
-			// Render View
-			$this->_template->render();
+		// Render View
+		$this->_template->render();
+		
+		// Close database connection
+		R::close();
 			
 	}
 

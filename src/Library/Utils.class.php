@@ -13,4 +13,24 @@ class Utils
 	    $start  = $length * -1; //negative
 	    return (substr($haystack, $start) === $needle);
 	}
+	
+	static public function DumpVar($var)
+	{
+		if(DEVELOPMENT_ENVIRONMENT)
+		{
+			echo "<pre>";
+			print_r($var);
+			echo "</pre>";
+		}
+	}
+	
+	static public function HtmlEncode($plain)
+	{
+		return htmlentities($plain,ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5, "UTF-8", TRUE);
+	}
+	
+	static public function HtmlDecode($encoded)
+	{
+		return html_entity_decode($encoded, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5, "UTF-8");
+	}
 }

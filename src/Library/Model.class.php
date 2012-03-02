@@ -34,14 +34,22 @@ class Model
 		return $this->id;
 	}
 	
-	function set($name,$value) {
+	
+	function __set($name, $value) {
 		$tbname = strtolower($name);
 		$this->_redBean->$tbname = $value;
 	}
 	
-	function get($name) {
+	
+	function __get($name) {
 		$tbname = strtolower($name);
 		return $this->_redBean->$tbname;
+	}
+    
+	function getValue($name)
+	{
+		$tbname = strtolower($name);
+		return $this->$tbname;		
 	}
 	
 	function save()
@@ -76,12 +84,11 @@ class Model
 	{
 		$modelName = self::getModelName();
 		$tableName = self::getTableName();
-		//echo "Method: $method Table:" . self::getModelName() . " Arguments: ";
-		//print_r($arguments);
+		
 		if(Utils::StartsWith($method,"GetRowBy"))
 		{			
 			$getby = strtolower(substr($method,8));
-			//echo " Getby: $getby";
+		
 	    	$res = R::find($modelName, "$getby = ?", $arguments);
 			
 			// if we didn't find anything, return an empty array
@@ -90,14 +97,12 @@ class Model
 				return Array();
 			}
 			
-			print_r($res);
 			if(sizeof($res) != 1)
 			{
 				die("Scalar lookup did not return exactly one row");
 			}
 			
-			$bp = new $modelName($res);
-			return $bp;
+			return new $modelName($res);
 		}
 		elseif (Utils::StartsWith($method,"GetRowsBy")) 
 		{

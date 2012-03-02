@@ -12,15 +12,15 @@ class Template {
 
 	/** Set Variables **/
 
-	function set($name,$value) {
-		$this->variables[$name] = $value;
+	function set($name, $value) {
+		$this->variables[$name] = $value;	
 	}
 
 	/** Display Template **/
 
     function render() {
 		extract($this->variables);
-
+		
 #			if (file_exists(ROOT . DS . 'application' . DS . 'Views' . DS . $this->_controller . DS . 'header.php')) {
 #				include (ROOT . DS . 'application' . DS . 'Views' . DS . $this->_controller . DS . 'header.php');
 #			} else {

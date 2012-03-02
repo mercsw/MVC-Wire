@@ -2,9 +2,8 @@
 class BlogPostsController extends Controller {
 
 	function view($id) {
-		$bp = new BlogPost();
 		$bp = BlogPost::GetRowById($id);
-		if (sizeof($bp) == 0)
+		if (empty($bp))
 		{
 			die("Record not found");
 		}
@@ -19,7 +18,7 @@ class BlogPostsController extends Controller {
 
 	function add() {
 		$bp = new BlogPost();
-		$bp->set('PostDate', time());
+		$bp->PostDate = time();
 		$bp->save();
 	}
 

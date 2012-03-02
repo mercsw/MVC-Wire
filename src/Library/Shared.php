@@ -102,6 +102,8 @@ function __autoload($className) {
 	}
 }
 
+// Configure RedBean
+// http://www.redbeanphp.com/api/
 function configOrm()
 {
 	global $DB_CONSTRING;
@@ -110,8 +112,74 @@ function configOrm()
 	
 	require_once(ROOT . DS . 'Library' . DS . 'ORM' . DS . 'redbean' . DS . 'rb.php');
 	R::setup($DB_CONSTRING, $DB_USER, $DB_PASSWORD);	
+	if(!DEVELOPMENT_ENVIRONMENT)
+	{
+		// Freeze the schema in production
+		R::freeze();
+	}
 }
 
+// Configure PHPIDS
+// http://phpids.org/docs/
+function configIDS()
+{
+	  require_once(ROOT . DS . 'Library' . DS . 'IDS' . DS . 'lib' . DS . 'IDS' . DS . 'Init.php');
+	  $request = array(
+      'REQUEST' => $_REQUEST,
+      'GET' => $_GET,
+      'POST' => $_POST,
+      'COOKIE' => $_COOKIE
+	  );
+	  
+	  $initialDir = getcwd();
+	  chdir(ROOT . DS . 'Library' . DS . 'IDS' . DS . 'lib');
+	  $init = IDS_Init::init(ROOT . DS . 'Library' . DS . 'IDS' . DS . 'lib' . DS . 'IDS' . DS . 'Config' . DS . 'Config.ini.php');
+	  
+	  $config = $init->getConfig();
+	  
+	  $config['General']['base_path'] = ROOT . DS . 'Library' . DS . 'IDS' . DS . 'lib' . DS . 'IDS' . DS;
+	  $config['General']['use_base_path'] = TRUE;
+	  
+	  $config['Logging']['path'] = ROOT . DS . 'tmp' . DS . 'logs' . DS . 'php-ids.log';
+	  $config['Logging']['recipients'][0] = IDS_EMAIL_TO;
+	  $config['Logging']['subject'] = IDS_EMAIL_SUBJECT;
+	  $config['Logging']['header'] = "From: " . IDS_EMAIL_FROM; 
+	  
+	  // Disable database logging
+	  unset($config['Logging']['wrapper']); 
+	  unset($config['Logging']['user']);
+	  unset($config['Logging']['password']);
+	  unset($config['Logging']['table']);
+	  
+	  // Disable database caching
+	  unset($config['Caching']['wrapper']); 
+	  unset($config['Caching']['user']);
+	  unset($config['Caching']['password']);
+	  unset($config['Caching']['table']);
+	  
+	  $init->setConfig($config, TRUE);
+	  //Utils::DumpVar($config);
+	    
+	  $ids = new IDS_Monitor($request, $init);
+	  $result = $ids->run();
+	
+	  if (!$result->isEmpty()) {
+	   
+	   echo "<div style=\"width:500px; height:400px; position:absolute; top:50%; left:50%; margin:-200px 0 0 -250px; 
+	   					display:block;overflow:auto;padding: 2em; 
+	   					font-family: 'Arial Black'; background-color: #f90017; color: #ffffff; 
+	   					border-width: .4em; border-style: double; border-color: #ffffff; \">
+	   					IDS WARNING:<br/><br/>
+	   					$result<br/>
+	   					Request Aborted!!!
+	   					</div>";
+						die("Request aborted by IDS");
+	  }
+	  
+	  chdir($initialDir);
+}
+
+configIDS();
 setReporting();
 checkMagicQuotes();
 checkRegisterGlobals();
