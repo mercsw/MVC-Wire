@@ -1,13 +1,15 @@
 <?php
 class BlogPostsController extends Controller {
 
+	static $NoHTMLEncode = Array("PostDate");
+
 	function view($id) {
 		$bp = BlogPost::GetRowById($id);
 		if (empty($bp))
 		{			          
 			throw new SystemException("Record not found");
 		}
-		$this->set('model', $bp);
+		$this->model = $bp;
 	}
 
 	function viewall() {
@@ -19,13 +21,20 @@ class BlogPostsController extends Controller {
 		{			          
 			throw new SystemException("Record not found");
 		}
-		$this->set('model',$bp);		
+		$this->model = $bp;		
 	}
 
 	function add() {
 		$bp = new BlogPost();
-		$bp->PostDate = time();
-		$bp->save();
+		try
+		{
+			$bp->PostDate = time();
+			$bp->save();
+		}
+		catch(ValidatorException $ex)
+		{
+			$this->ErrMsg = $ex->GetError();
+		}		
 	}
 
 	function delete($id = null) {

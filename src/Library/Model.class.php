@@ -31,21 +31,31 @@ class Model
 	}
 		
 	function __set($name, $value) {
-		$tbname = strtolower($name);
-		$this->_redBean->$tbname = $value;
+		$colname = strtolower($name);
+		if($colname == "id" )
+		{
+			throw new SystemException("Setting model id is not allowed");
+		}	
+		$funcname = $colname . "Validator";
+		if(!method_exists($this, $funcname))
+		{
+			throw new SystemException("Required Validator ($funcname()) for property $colname not found in class " . get_class($this));	
+		} 
+		$this->$funcname($name, $value);
+		$this->_redBean->$colname = $value;
 	}
 	
 	
 	function __get($name) {
-		$tbname = strtolower($name);
-		return $this->_redBean->$tbname;
+		$colname = strtolower($name);
+		return $this->_redBean->$colname;
 	}
     
-	function getValue($name)
+	/*function getValue($name)
 	{
 		$tbname = strtolower($name);
 		return $this->$tbname;		
-	}
+	}*/
 	
 	function save()
 	{

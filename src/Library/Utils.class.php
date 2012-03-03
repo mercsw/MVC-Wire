@@ -26,7 +26,7 @@ class Utils
 	
 	static public function HtmlEncode($plain)
 	{
-		return htmlentities($plain,ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5, "UTF-8", TRUE);
+		return htmlentities($plain, 0, "UTF-8", TRUE);
 	}
 	
 	static public function HtmlDecode($encoded)

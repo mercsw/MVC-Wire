@@ -10,13 +10,9 @@ class Template {
 		$this->_action = $action;
 	}
 
-	/** Set Variables **/
-
-	function set($name, $value) {
+	function __set($name, $value) {
 		$this->variables[$name] = $value;	
 	}
-
-	/** Display Template **/
 
     function render() 
     {
