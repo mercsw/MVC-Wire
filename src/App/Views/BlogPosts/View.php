@@ -1,8 +1,3 @@
-<?php
-echo "view: " . get_class($model);
-		Utils::DumpVar($model);
-?>
-
 <h2><?php echo $model->Id() . " " . $model->getValue("PostDate") ?></h2>
 
 <a class="big" href="../../../BlogPosts/Delete/<?php echo $model->Id() . " " . $model->PostDate ?>">

@@ -4,8 +4,8 @@ class BlogPostsController extends Controller {
 	function view($id) {
 		$bp = BlogPost::GetRowById($id);
 		if (empty($bp))
-		{
-			die("Record not found");
+		{			          
+			throw new SystemException("Record not found");
 		}
 		$this->set('model', $bp);
 	}
@@ -24,6 +24,6 @@ class BlogPostsController extends Controller {
 
 	function delete($id = null) {
 		$this->set('title','Success - Blog');
-		die("Not implemented");
+		throw new SystemException("Not implemented");
 	}
 }

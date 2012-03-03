@@ -23,8 +23,10 @@ class Controller {
 
 	function __destruct() {
 		// Render View
-		$this->_template->render();
-		
+		if(SystemException::Count() == 0)
+		{
+			$this->_template->render();
+		}
 		// Close database connection
 		R::close();
 			

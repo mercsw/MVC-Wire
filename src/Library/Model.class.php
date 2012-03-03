@@ -90,7 +90,7 @@ class Model
 			$getby = strtolower(substr($method,8));
 		
 	    	$res = R::find($modelName, "$getby = ?", $arguments);
-			
+						
 			// if we didn't find anything, return an empty array
 			if(empty($res))
 			{
@@ -102,7 +102,7 @@ class Model
 				die("Scalar lookup did not return exactly one row");
 			}
 			
-			return new $modelName($res);
+			return new $modelName(array_shift($res));			
 		}
 		elseif (Utils::StartsWith($method,"GetRowsBy")) 
 		{
