@@ -26,7 +26,7 @@ if ( get_magic_quotes_gpc() ) {
 #	$_GET    = stripSlashesDeep($_GET   );
 #	$_POST   = stripSlashesDeep($_POST  );
 #	$_COOKIE = stripSlashesDeep($_COOKIE);
-	die("Magic Quotes Must be turned off!!!");
+	throw new SystemException("Magic Quotes Must be turned off!!!");
 }
 }
 
@@ -42,7 +42,7 @@ function checkRegisterGlobals() {
 #                }
 #            }
 #        }
-	die("Register Globals must be turned off!!!");
+	throw new SystemException("Register Globals must be turned off!!!");
     }
 }
 
@@ -56,7 +56,7 @@ function callHook() {
 
 	if(count($urlArray) < 2)
 	{
-		die("Invalid MVC Wire request");
+		throw new SystemException("Invalid MVC Wire request");
 	}
 	// Get Controller name from url
 	$controller = $urlArray[0];
@@ -84,7 +84,7 @@ function callHook() {
 	if ((int)method_exists($controller, $action)) {
 		call_user_func_array(array($dispatch,$action),$queryString);
 	} else {
-		die("Invalid Controller called");
+		throw new SystemException("Invalid Controller called");
 	}
 }
 
@@ -173,7 +173,7 @@ function configIDS()
 	   					$result<br/>
 	   					Request Aborted!!!
 	   					</div>";
-						die("Request aborted by IDS");
+						throw new SystemException("Request aborted by IDS");
 	  }
 	  
 	  chdir($initialDir);

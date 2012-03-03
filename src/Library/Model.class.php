@@ -99,14 +99,14 @@ class Model
 			
 			if(sizeof($res) != 1)
 			{
-				die("Scalar lookup did not return exactly one row");
+				throw new SystemException("Scalar lookup did not return exactly one row");
 			}
 			
 			return new $modelName(array_shift($res));			
 		}
 		elseif (Utils::StartsWith($method,"GetRowsBy")) 
 		{
-			die("Not implemented");			
+			throw new SystemException("Not implemented");			
 		}
 		else 
 		{
