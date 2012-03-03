@@ -18,5 +18,10 @@ class Template {
     {
 		extract($this->variables);
        	include (ROOT . DS . 'App' . DS . 'Views' . DS . $this->_controller . DS . $this->_action . '.php');
+		// Add diagnostics tab
+		if(DEVELOPMENT_ENVIRONMENT)
+		{
+			
+		}
 	}
 }

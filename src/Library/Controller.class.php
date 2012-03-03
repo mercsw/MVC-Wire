@@ -5,6 +5,7 @@ class Controller {
 	protected $_controller;
 	protected $_action;
 	protected $_template;
+	static protected $_path;
 
 	function __construct($model, $controller, $action) {
 
@@ -14,7 +15,13 @@ class Controller {
 
 		$this->$model = new $model;
 		$this->_template = new Template($controller,$action);
+		self::$_path =  "/$controller";
 
+	}
+	
+	static public function GetPath()
+	{
+		return self::$_path;
 	}
 
 	function __set($name,$value) {		

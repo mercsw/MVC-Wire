@@ -1,13 +1,18 @@
 <?php
 class Diagnostics 
 {
-	static $_trace = Array();
+	private static $_trace = Array();
 	
-	static function Trace($message)
+	public static function Trace($message)
 	{
 		if(DEVELOPMENT_ENVIRONMENT)
 		{
 			$_trace[] = $message;
 		}
+	}
+	
+	public static function GetTrace()
+	{
+		return $_trace;
 	}
 }
