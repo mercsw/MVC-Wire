@@ -1,7 +1,9 @@
-<h2><?php echo $model->Id() . " " . $model->getValue("PostDate") ?></h2>
+<?php 
+use HtmlHelpers as hh;
 
-<a class="big" href="../../../BlogPosts/Delete/<?php echo $model->Id() . " " . $model->PostDate ?>">
-<span class="item">
-Delete this post
-</span>
-</a>
+Response::WriteLine($model->Id);
+Response::WriteLine($model->PostDate);
+Response::WriteLine(hh::UrlLink("Delete Post", "../../../BlogPosts/Delete/" . $model->Id));
+Response::Write(hh::UrlLink("Click here", "../../../BlogPosts/ViewAll"));
+Response::Write(" to go back.");
+

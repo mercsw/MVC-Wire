@@ -11,9 +11,15 @@ class BlogPostsController extends Controller {
 	}
 
 	function viewall() {
-		$blogPosts = array('item1', 'item2', 'item3');
-		$this->set('title','All BlogPost - Blog');
-		$this->set('blogPosts',$blogPosts);
+		// To get a specific id's
+		//$bp = BlogPost::GetRowsById(4,2,3,6);
+		// Get all rows
+		$bp = BlogPost::GetAll();
+		if (empty($bp))
+		{			          
+			throw new SystemException("Record not found");
+		}
+		$this->set('model',$bp);		
 	}
 
 	function add() {
@@ -23,7 +29,11 @@ class BlogPostsController extends Controller {
 	}
 
 	function delete($id = null) {
-		$this->set('title','Success - Blog');
-		throw new SystemException("Not implemented");
+		$bp = BlogPost::GetRowById($id);
+		if (empty($bp))
+		{			          
+			throw new SystemException("Record not found");
+		}
+		$bp->Delete();		
 	}
 }

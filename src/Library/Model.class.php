@@ -29,12 +29,7 @@ class Model
 		}
 		
 	}
-	
-	function Id(){
-		return $this->id;
-	}
-	
-	
+		
 	function __set($name, $value) {
 		$tbname = strtolower($name);
 		$this->_redBean->$tbname = $value;
@@ -80,16 +75,33 @@ class Model
 		return self::$_table;
 	}
 	
+	static public function GetAll()
+	{
+		$modelName = self::getModelName();
+		
+		$res = R::find($modelName);	    	
+		
+		$mRows = Array();			 			
+		foreach($res as $r)
+		{
+			$mRows[$r->id] = new $modelName($r);
+		}						
+		return $mRows;									
+	}
+	
+	public function Delete()
+	{
+		R::trash($this->_redBean);
+	}
+	
 	static public function __callStatic($method,$arguments) 
 	{
 		$modelName = self::getModelName();
-		$tableName = self::getTableName();
 		
 		if(Utils::StartsWith($method,"GetRowBy"))
 		{			
 			$getby = strtolower(substr($method,8));
-		
-	    	$res = R::find($modelName, "$getby = ?", $arguments);
+			$res = R::find($modelName, "$getby = ?", $arguments);
 						
 			// if we didn't find anything, return an empty array
 			if(empty($res))
@@ -106,7 +118,15 @@ class Model
 		}
 		elseif (Utils::StartsWith($method,"GetRowsBy")) 
 		{
-			throw new SystemException("Not implemented");			
+			$getby = strtolower(substr($method,9));					
+			$res = R::find($modelName, "$getby IN (" . R::genSlots($arguments) . ") " , $arguments);	    	
+			
+			$mRows = Array();			 			
+			foreach($res as $r)
+			{
+				$mRows[$r->id] = new $modelName($r);
+			}						
+			return $mRows;									
 		}
 		else 
 		{
