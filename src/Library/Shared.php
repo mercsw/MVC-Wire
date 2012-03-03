@@ -165,20 +165,25 @@ function configIDS()
 	
 	  if (!$result->isEmpty()) {
 	   
-	   echo "<div style=\"width:500px; height:400px; position:absolute; top:50%; left:50%; margin:-200px 0 0 -250px; 
+	   Response::Write("<div style=\"width:500px; height:400px; position:absolute; top:50%; left:50%; margin:-200px 0 0 -250px; 
 	   					display:block;overflow:auto;padding: 2em; 
 	   					font-family: 'Arial Black'; background-color: #f90017; color: #ffffff; 
 	   					border-width: .4em; border-style: double; border-color: #ffffff; \">
 	   					IDS WARNING:<br/><br/>
 	   					$result<br/>
 	   					Request Aborted!!!
-	   					</div>";
+	   					</div>");
 						throw new SystemException("Request aborted by IDS");
 	  }
 	  
 	  chdir($initialDir);
 }
-
+function registerRequestHandlers()
+{
+	Request::Register();
+}
+ 
+registerRequestHandlers();
 configIDS();
 setReporting();
 checkMagicQuotes();
