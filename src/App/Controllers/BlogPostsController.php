@@ -1,6 +1,7 @@
 <?php
 class BlogPostsController extends Controller {
 
+	// Whitelist values that should not get html encoded before being sent to the View
 	static $NoHTMLEncode = Array("PostDate");
 
 	function view($id) {
