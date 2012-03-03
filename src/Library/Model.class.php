@@ -35,13 +35,19 @@ class Model
 		if($colname == "id" )
 		{
 			throw new SystemException("Setting model id is not allowed");
-		}	
+		}
+		
+		//Validate the data against the model
+		Validators::Validate($this, $name, $value);
+		
+		/*	
 		$funcname = $colname . "Validator";
 		if(!method_exists($this, $funcname))
 		{
 			throw new SystemException("Required Validator ($funcname()) for property $colname not found in class " . get_class($this));	
 		} 
 		$this->$funcname($name, $value);
+		*/
 		$this->_redBean->$colname = $value;
 	}
 	

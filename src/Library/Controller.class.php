@@ -17,19 +17,19 @@ class Controller {
 
 	}
 
-	function __set($name,$value) {
-		 // If its not whitelisted or coming from our database (data that should already have been validated)
-		 // Then we html encode it
-		 $v = "";
-		 if(array_search($name, $this::$NoHTMLEncode, FALSE) || "Model" == get_parent_class($name) || $name == "model")
-		 {
-		 	$v = $value;
-		 }
-		 else 
-		 {
+	function __set($name,$value) {		
+		// If its not whitelisted or coming from our database (data that should already have been validated)
+		// Then we html encode it
+		$v = "";
+		if(array_search($name, $this::$NoHTMLEncode, FALSE) || "Model" == get_parent_class($name) || $name == "model")
+		{
+			$v = $value;
+		}
+		else 
+		{
 			$v = Utils::HtmlEncode($value);	 
-		 }
-		 $this->_template->$name = $v;
+		}
+		$this->_template->$name = $v;
 	}
 
 	function __destruct() {

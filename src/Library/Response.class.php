@@ -8,6 +8,12 @@ class Response
 	
 	static public function WriteLine($output)
 	{
-		echo $output . "</br>";
+		echo $output;
+		self::BreakLine();
+	}
+	
+	static public function BreakLine()
+	{
+		echo "<br/>";
 	}
 }
