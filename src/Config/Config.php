@@ -1,5 +1,4 @@
 <?php
-
 define ('DEVELOPMENT_ENVIRONMENT',TRUE);
 
 // IDS Configuration

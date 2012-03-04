@@ -1,4 +1,6 @@
 <?php
+use Diagnostics as dd;
+
 class Response 
 {
    static public function Write($output)
@@ -12,8 +14,16 @@ class Response
 		self::BreakLine();
 	}
 	
-	static public function BreakLine()
+	static public function BreakLine($sendToClient = TRUE)
 	{
-		echo "<br/>";
+		$tag = "<br/>";
+		if($sendToClient)
+		{
+			echo $tag;
+		}
+		else 
+		{
+			return $tag;
+		}
 	}
 }

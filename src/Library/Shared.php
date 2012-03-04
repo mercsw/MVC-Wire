@@ -1,7 +1,7 @@
 <?php
+use Diagnostics as dd;
 
 /** Check if environment is development and display errors **/
-
 function setReporting() {
 if (DEVELOPMENT_ENVIRONMENT == true) {
 	error_reporting(E_ALL);
@@ -90,7 +90,8 @@ function callHook() {
 
 /** Autoload any classes that are required **/
 
-function __autoload($className) {
+function autoLoader($class) {
+	$className = end(explode('\\', $class));	
 	if (file_exists(ROOT . DS . 'Library' . DS . $className . '.class.php')) {
 		require_once(ROOT . DS . 'Library' . DS . $className . '.class.php');
 	} else if (file_exists(ROOT . DS . 'App' . DS . 'Controllers' . DS . $className . '.php')) {
@@ -111,7 +112,7 @@ function configOrm()
 	global $DB_PASSWORD;
 	
 	require_once(ROOT . DS . 'Library' . DS . 'ORM' . DS . 'redbean' . DS . 'rb.php');
-	R::setup($DB_CONSTRING, $DB_USER, $DB_PASSWORD);	
+	\R::setup($DB_CONSTRING, $DB_USER, $DB_PASSWORD);	
 	if(!DEVELOPMENT_ENVIRONMENT)
 	{
 		// Freeze the schema in production
@@ -133,7 +134,7 @@ function configIDS()
 	  
 	  $initialDir = getcwd();
 	  chdir(ROOT . DS . 'Library' . DS . 'IDS' . DS . 'lib');
-	  $init = IDS_Init::init(ROOT . DS . 'Library' . DS . 'IDS' . DS . 'lib' . DS . 'IDS' . DS . 'Config' . DS . 'Config.ini.php');
+	  $init = \IDS_Init::init(ROOT . DS . 'Library' . DS . 'IDS' . DS . 'lib' . DS . 'IDS' . DS . 'Config' . DS . 'Config.ini.php');
 	  
 	  $config = $init->getConfig();
 	  
@@ -160,7 +161,7 @@ function configIDS()
 	  $init->setConfig($config, TRUE);
 	  //Utils::DumpVar($config);
 	    
-	  $ids = new IDS_Monitor($request, $init);
+	  $ids = new \IDS_Monitor($request, $init);
 	  $result = $ids->run();
 	
 	  if (!$result->isEmpty()) {
@@ -182,10 +183,11 @@ function registerRequestHandlers()
 {
 	Request::Register();
 }
- 
+
+setReporting(); 
+spl_autoload_register("autoLoader", TRUE);
 registerRequestHandlers();
 configIDS();
-setReporting();
 checkMagicQuotes();
 checkRegisterGlobals();
 configOrm();

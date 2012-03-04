@@ -1,14 +1,16 @@
 body {
-
-
+	background-color : #005415;
+	color : #B7FF8C;	
+	padding : 15px;
+	font-family : monospace;
+	font-size : 10pt;
+	font-variant : normal;
 }
 
-.idswarning {
-	width:200px;
-    height:100px;
-    position:absolute;
-    top:50%;
-    left:50%;
-    margin:-50px 0 0 -100px; /* [-(height/2)px 0 0 -(width/2)px] */
-    display:block;
+a:link,a:visited,a:active {
+	color : #B7FF8C; 
+}
+
+a:hover {
+	color : #97DF6C; 
 }

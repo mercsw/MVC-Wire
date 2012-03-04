@@ -1,4 +1,6 @@
 <?php
+use Diagnostics as dd;
+
 class Utils 
 {
 	static public function StartsWith($haystack, $needle)

@@ -1,4 +1,6 @@
 <?php
+use Diagnostics as dd;
+
 class Validators
 {
 	static function MatchesRegex($field, $value,$regex, $message = NULL)

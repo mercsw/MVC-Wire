@@ -1,5 +1,5 @@
 <?php    
-use Diagnostics as d;
+use Diagnostics as dd;
 
 class Request 
 {
@@ -11,10 +11,12 @@ class Request
 	 
     static function Begin()
 	{
-		d::Trace("Begin Request");		
+		dd::Start();
+		dd::Trace("Begin Request");				
 	}
 	static function End()
 	{
-		d::Trace("End Request");
+		dd::Trace("End Request");
+		dd::End();				
 	}
 }

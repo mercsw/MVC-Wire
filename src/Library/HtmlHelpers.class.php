@@ -1,10 +1,11 @@
 <?php
+use Diagnostics as dd;
 
 class HtmlHelpers 
 {
 	static public function BreakLine()
 	{
-		return "</br>";
+		return "</br>\n";
 	}
 	
 	static public function UrlLink($text, $href)
@@ -37,12 +38,12 @@ class HtmlHelpers
 	{
 		$tag = self::GetListTypeTag($type);
 		
-		$htmlString = "<$tag>";
+		$htmlString = "<$tag>\n";
 		foreach($array as $item)
 		{
-			$htmlString .= "<li>$item</li>";
+			$htmlString .= "\t<li>$item</li>\n";
 		}
-		$htmlString .= "</$tag>";
+		$htmlString .= "</$tag>\n";
 		return $htmlString;
 	}
 	
@@ -51,13 +52,37 @@ class HtmlHelpers
 	{
 		$tag = self::GetListTypeTag($type);
 		
-		$htmlString = "<$tag>";
+		$htmlString = "<$tag>\n";
 		foreach($array as $item)
 		{
-			$htmlString .= "<li>" . $noLinkTextPrefix . self::UrlLink($item[0], $item[1]) . $noLinkTextPostfix . "</li>";
+			$htmlString .= "\t<li>" . $noLinkTextPrefix . self::UrlLink($item[0], $item[1]) . $noLinkTextPostfix . "</li>\n";
 		}
-		$htmlString .= "</$tag>";
+		$htmlString .= "</$tag>\n";
 		return $htmlString;
+	}
+	
+	static public function FloatingWindow($id, $content)
+	{
+		return "\n<div id=\"" . $id . "Container\">\n\t<div id=\"$id\">\n$content\n\t</div>\n</div>\n";
+	}
+	
+	static public function BeginHtmlHeader($version = 5)
+	{
+		return 
+"<!DOCTYPE html>
+<html lang=\"en\">
+<head>
+<meta charset=\"utf-8\" />
+";		
+	}
+	static public function EndHtmlHeader()
+	{
+		return "\n</head>\n";		
+	}
+	
+	static public function Title($title = "No Title Set for this page")
+	{
+		return "<title>$title</title>\n";
 	}
 }
 

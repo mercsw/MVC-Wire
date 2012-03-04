@@ -1,4 +1,5 @@
 <?php
+use Diagnostics as dd;
 
 // Base Model Implementation with RedBean
 class Model 
@@ -10,6 +11,7 @@ class Model
 
 	// Functions that operate on an instance of a bean (one row of a table)
 	function __construct() {
+		//dd::Trace("Creating instance of model");
 		self::$_model = get_class($this);
 		
 		if(self::$_table == NULL)
@@ -30,29 +32,19 @@ class Model
 		
 	}
 		
-	function __set($name, $value) {
+	function __set($name, $value) {		
 		$colname = strtolower($name);
 		if($colname == "id" )
 		{
 			throw new SystemException("Setting model id is not allowed");
-		}
-		
+		}						
 		//Validate the data against the model
-		Validators::Validate($this, $name, $value);
-		
-		/*	
-		$funcname = $colname . "Validator";
-		if(!method_exists($this, $funcname))
-		{
-			throw new SystemException("Required Validator ($funcname()) for property $colname not found in class " . get_class($this));	
-		} 
-		$this->$funcname($name, $value);
-		*/
+		Validators::Validate($this, $name, $value);				
 		$this->_redBean->$colname = $value;
 	}
 	
 	
-	function __get($name) {
+	function __get($name) {		
 		$colname = strtolower($name);
 		return $this->_redBean->$colname;
 	}
@@ -65,6 +57,7 @@ class Model
 	
 	function save()
 	{
+		dd::Trace("Persisting model to database");
 		$this->id = R::store($this->_redBean);
 		return $this->id;
 	}
@@ -107,6 +100,7 @@ class Model
 	
 	public function Delete()
 	{
+		dd::Trace("Deleting model from database");
 		R::trash($this->_redBean);
 	}
 	

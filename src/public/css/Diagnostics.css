@@ -1,0 +1,39 @@
+#devDiag {
+  	overflow : auto;
+	color : #2C000D;
+	background-color : #00B047;
+	border-width : 3px;
+	border-color : #000000;
+	border-style : solid;
+	width : 800px;
+	height : 80%;
+	padding-top : 1em;
+	padding-left : 1em;
+	padding-right : 1em;
+	padding-bottom : 1em;
+	position : fixed;
+	margin-left : -820px;
+	top : 0px;
+	left : 0px;
+	right : 0px;
+	bottom : 0px;
+	z-index : 0;
+	cursor : move;
+	margin-top : 5%;
+	visibility : visible;
+}
+
+#devDiagContainer {
+	overflow : hidden;
+	width : 830px;
+	height : 80%;
+	position : fixed;
+	margin-left : 0px;
+	top : 0px;
+	left : 0px;
+	right : 0px;
+	bottom : 0px;
+	z-index : 0;
+	margin-top : 5%;
+	visibility : hidden;
+}

@@ -1,6 +1,6 @@
 <?php
-use BlogPostsController as cc;
 use HtmlHelpers as hh;
+use BlogPostsController as cc;
 
 $posts = $model; 
 
@@ -12,5 +12,5 @@ function filterResults($result)
 $posts = array_map("filterResults", $posts);
 
 Response::Write(hh::ItemUrlList($posts, hh::UnorderedType, "Post dated: "));
-Response::Write(hh::UrlLink("Click here", BlogPostsController::GetPath() . "/Add"));
+Response::Write(hh::UrlLink("Click here", cc::GetPath() . "/Add"));
 Response::Write(" to add a new post");
