@@ -24,12 +24,15 @@ class JavaScript
 	}
 
 	
-	public static function ToHtml()
+	public static function ToHtml($isPartial = FALSE)
 	{
 		dd::Trace("Building Javascript Include HTML");
-		// Load JQuery everywhere
-		array_unshift(self::$_scripts,"https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js");
-		array_unshift(self::$_scripts,"https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js");				
+		if(! $isPartial)
+		{
+			// Load JQuery everywhere
+			array_unshift(self::$_scripts,"https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js");
+			array_unshift(self::$_scripts,"https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js");
+		}				
 		$htmlString = "";
 		// add a link for each stylesheet
 		foreach(self::$_scripts as $script)

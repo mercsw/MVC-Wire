@@ -7,10 +7,16 @@ class Template {
 	protected $variables = array();
 	protected $_controller;
 	protected $_action;
+	protected $_isPartial = FALSE;
 
 	function __construct($controller,$action) {
 		$this->_controller = $controller;
 		$this->_action = $action;
+	}
+	
+	function SetIsPartial($value = TRUE)
+	{
+		$this->_isPartial = $value;
 	}
 
 	function __set($name, $value) {
@@ -20,13 +26,16 @@ class Template {
     function render() 
     {
 		extract($this->variables);
-		Response::Write(hh::BeginHtmlHeader());
-		Response::Write(hh::Title());
-		Response::Write(StyleSheet::ToHtml());
-		Response::Write(hh::EndHtmlHeader());
+		if(! $this->_isPartial)
+		{
+			Response::Write(hh::BeginHtmlHeader());
+			Response::Write(hh::Title());
+			Response::Write(StyleSheet::ToHtml());
+			Response::Write(hh::EndHtmlHeader());
+		}
        	include (ROOT . DS . 'App' . DS . 'Views' . DS . $this->_controller . DS . $this->_action . '.php');
 		Response::Write("\n");	
-		Response::Write(JavaScript::ToHtml());
+		Response::Write(JavaScript::ToHtml($this->_isPartial));
 		// End Body and Html gets rendered in Request::End() to make sure we are done sending to the client  				
 	}
 }

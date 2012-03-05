@@ -30,7 +30,7 @@ class BlogPostsController extends Controller {
 		$bp = new BlogPost();
 		try
 		{
-			$bp->PostDate = time();
+			$bp->PostDate = time();			
 			$bp->save();
 		}
 		catch(ValidatorException $ex)

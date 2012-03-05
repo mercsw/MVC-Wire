@@ -6,6 +6,7 @@ class Controller {
 	protected $_action;
 	protected $_template;
 	static protected $_path;
+	protected $_NoRender = FALSE;
 
 	function __construct($model, $controller, $action) {				
 		$this->_controller = $controller;
@@ -16,6 +17,11 @@ class Controller {
 		$this->_template = new Template($controller,$action);
 		self::$_path =  "/$controller";
 
+	}
+	
+	public function SetNoRender($value = TRUE)
+	{
+		$this->_NoRender = $value;
 	}
 	
 	static public function GetPath()
@@ -42,7 +48,7 @@ class Controller {
 
 	function __destruct() {
 		// Render View
-		if(SystemException::Count() == 0)
+		if(SystemException::Count() == 0 && $this->_NoRender == FALSE)
 		{
 			//dd::Trace("Rendering template");
 			$this->_template->render();
