@@ -31,6 +31,12 @@ class StyleSheet
 	
 	public static function ToHtml()
 	{
+		/* Need to add with media info:		  
+<link rel="stylesheet" href="Default.css" type="text/css" media="screen, projection" />
+<!--[if lte IE 6]>
+	<link rel="stylesheet" href="Default_IE.css" type="text/css" media="screen, projection" />
+<![endif]-->		  
+		 */		
 		// Prepend the main site stylesheet
 		array_unshift(self::$_styleSheets,"/public/css/Site.css");		
 		$htmlString = "";

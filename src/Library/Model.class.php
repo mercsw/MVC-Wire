@@ -138,6 +138,10 @@ class Model
 			}						
 			return $mRows;									
 		}
+		elseif (Utils::StartsWith($method,"Validate")) 
+		{
+			
+		}
 		else 
 		{
 			return false;

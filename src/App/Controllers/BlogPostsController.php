@@ -8,8 +8,9 @@ class BlogPostsController extends Controller {
 	function view($id) {
 		$bp = BlogPost::GetRowById($id);
 		if (empty($bp))
-		{			          
-			throw new SystemException("Record not found");
+		{				          
+			$this->ErrMsg = "Record not found";
+			return;	
 		}
 		$this->model = $bp;
 	}
@@ -21,7 +22,8 @@ class BlogPostsController extends Controller {
 		$bp = BlogPost::GetAll();
 		if (empty($bp))
 		{			          
-			throw new SystemException("Record not found");
+			$this->ErrMsg = "No records found";
+			return;
 		}
 		$this->model = $bp;		
 	}
@@ -43,7 +45,8 @@ class BlogPostsController extends Controller {
 		$bp = BlogPost::GetRowById($id);
 		if (empty($bp))
 		{			          
-			throw new SystemException("Record not found");
+			$this->ErrMsg = "Error deleting record";
+			return;
 		}
 		$bp->Delete();		
 	}
